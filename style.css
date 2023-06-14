@@ -216,14 +216,17 @@ header {
   
   label {
 	display: block;
-	font-weight: bold;
+	text-align: left; 
   }
   
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"],
+  select {
 	width: 100%;
 	padding: 5px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
+	box-sizing: border-box; /* Added box-sizing property */
   }
   
   .form-actions {
