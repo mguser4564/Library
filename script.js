@@ -3,6 +3,7 @@ const headerButton = document.querySelector('.header-button');
 const overlay = document.querySelector('.overlay');
 const popupContainer = document.querySelector('.popup-container');
 const closeButton = document.querySelector('.close-button');
+const addButton = document.querySelector('.submit-button')
 const toggleInput = document.querySelector('.toggle-input');
 const gridItem = document.querySelector('.grid-item');
 
@@ -51,19 +52,29 @@ setupEventListeners();
 
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
-      this.title = title
-      this.author = author
-      this.pages = pages
-      this.read = read
-      this.info = function () {
-             return(title, author, pages, read)
-      }
-};
-
-
-
 function addBookToLibrary() {
-      // do stuff here
+document.getElementById('myForm').addEventListener('submit', function(event) {
+  event.preventDefault(); 
+let formData = new FormData(event.target);
+let title = formData.get('book-title');
+let author = formData.get('author');
+let pages = formData.get('pages');
+let read = formData.get('read');
+let book = new Book(title, author, pages, read);
+processBook(book);
+closePopup();
+document.getElementById("myForm").reset();
+});}
+
+function processBook(book) {
+  console.log(book);
 }
 
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+};
+
+addBookToLibrary();
