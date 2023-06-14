@@ -164,9 +164,88 @@ header {
 	cursor: pointer;
 }
 
+.header-button:hover {
+	background-color: #6acd6d;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+	display: none;
+  }
+  
+  .popup-container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+	display: none;
+  }
+  
+  .popup-content {
+	text-align: center;
+  }
+  
+  .form-title {
+	margin-top: 0;
+  }
+  
+  .form-group {
+	margin-bottom: 20px;
+  }
+  
+  label {
+	display: block;
+	font-weight: bold;
+  }
+  
+  input[type="text"] {
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+  }
+  
+  .form-actions {
+	text-align: center;
+  }
+
+  .submit-button{
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+  }
+
+  .submit-button:hover {
+	background-color: #6acd6d;
+  }
+  
+  .close-button {
+	background-color: #eb5858;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+  }
+  
+  .close-button:hover {
+	background-color: #fe8989;
+  }
+
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	grid-gap: 10px;
 	padding: 10px;
 }
@@ -189,6 +268,40 @@ header {
 	margin: 5px 0;
 }
 
+.delete-button {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 14px;
+	height: 14px;
+	background-color: #eb5858; 
+	border: none;
+	cursor: pointer;
+  }
+  
+  .delete-button:before,
+  .delete-button:after {
+	content: "";
+	position: absolute;
+	width: 2px;
+	height: 8px;
+	background-color: white;
+	top: 3px;
+	left: 6px;
+  }
+  
+  .delete-button:before {
+	transform: rotate(45deg);
+  }
+  
+  .delete-button:after {
+	transform: rotate(-45deg);
+  }
+  
+  .delete-button:hover {
+	background-color: #fe8989;
+  }
+
 .toggle-label {
 	display: inline-block;
 	position: absolute;
@@ -209,7 +322,6 @@ header {
 	right: 0;
 	bottom: 0;
 	background-color: #ccc;
-	border-radius: 1px;
 	cursor: pointer;
 	transition: 0.4s;
 }
@@ -233,3 +345,4 @@ header {
 .toggle-input:checked+.toggle-slider:before {
 	transform: translateX(16px);
 }
+
