@@ -137,6 +137,7 @@ table {
 body {
 	margin: 0;
 	padding: 0;
+	background-color: #ffffff;
 }
 
 header {
@@ -145,12 +146,21 @@ header {
 	justify-content: space-between;
 	background-color: #f2f2f2;
 	padding: 10px;
+	border-bottom: 2px solid #d8d8d8;
 }
 
 .logo {
-	font-size: 24px;
+	font-size: 28px;
 	margin: 0;
+	font-weight: bold;
 }
+
+.icon {
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+	margin-right: 2px;
+  }
 
 .header-button {
 	background-color: #4caf50;
@@ -192,11 +202,12 @@ header {
   }
   
   .popup-content {
-	text-align: center;
+	text-align: left;
   }
   
   .form-title {
-	margin-top: 0;
+	margin-bottom: 22px;
+	text-align: center;
   }
   
   .form-group {
@@ -252,20 +263,34 @@ header {
 
 .grid-item {
 	background-color: #f2f2f2;
-	padding: 20px;
+	border: 2px solid #eb5858; 
+	transition: border-color 0.3s; 
+	padding: 10px;
 	text-align: left;
 	position: relative;
 }
 
-.book-title {
-	font-size: 18px;
-	font-weight: bold;
+.grid-item.green-border {
+	border-color: #4caf50; 
 }
 
+.index{
+	display: grid;
+}
+
+.book-title,
 .author,
 .pages,
-.publication-date {
+.read {
 	margin: 5px 0;
+}
+
+.read{
+	color:#eb5858;
+}
+
+.green-text {
+	color:#4caf50;
 }
 
 .delete-button {
@@ -345,4 +370,3 @@ header {
 .toggle-input:checked+.toggle-slider:before {
 	transform: translateX(16px);
 }
-
