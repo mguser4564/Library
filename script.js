@@ -19,34 +19,39 @@ function closePopup() {
   popupContainer.style.display = 'none';
 }
 
-function toggleGridItemBorderColor() {
-  const toggleInput = document.querySelector('.toggle-input');
-  const gridItem = document.querySelector('.grid-item');
-  const gridItemRead = document.querySelector('.read');
-
-  toggleInput.addEventListener('change', function() {
-    if (this.checked) {
-      gridItem.classList.add('green-border');
-      gridItemRead.textContent = 'READ'; 
-      gridItemRead.classList.add('green-text');
-    } else {
-      gridItem.classList.remove('green-border');
-      gridItemRead.textContent = 'UNREAD'; 
-      gridItemRead.classList.remove('green-text');
-    }
-  });
-}
-
 function setupEventListeners() {
   const headerButton = document.querySelector('.header-button');
   const closeButton = document.querySelector('.close-button');
 
   headerButton.addEventListener('click', openPopup);
   closeButton.addEventListener('click', closePopup);
-  toggleGridItemBorderColor();
+}
+
+
+function toggleGridItemBorderColor() {
+  const gridContainer = document.getElementById("grid-container");
+
+  gridContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('toggle-input')) {
+      const slider = event.target;
+      const book = slider.closest('.grid-item');
+      const read = book.querySelector('.read')
+
+      if (slider.checked) {
+        book.classList.add('green-border');
+        read.textContent = 'Read';
+        read.classList.add('green-text');
+      } else {
+        book.classList.remove('green-border');
+        read.textContent = 'Unread';
+        read.classList.remove('green-text');
+      }
+    }
+  });
 }
 
 setupEventListeners();
+toggleGridItemBorderColor();
 
 // Object Library
 
@@ -61,20 +66,76 @@ let author = formData.get('author');
 let pages = formData.get('pages');
 let read = formData.get('read');
 let book = new Book(title, author, pages, read);
-processBook(book);
+myLibrary.push(book);
 closePopup();
 document.getElementById("myForm").reset();
 });}
-
-function processBook(book) {
-  console.log(book);
-}
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("grid-item");
+
+    const index = document.createElement("div");
+    index.classList.add("index");
+  
+    const titleDom = document.createElement("p");
+    titleDom.classList.add("book-title");
+    titleDom.textContent = "Book Title:" + title;
+  
+    const authorDom = document.createElement("p");
+    authorDom.classList.add("author");
+    authorDom.textContent = "Author:" + author;
+  
+    const pagesDom = document.createElement("p");
+    pagesDom.classList.add("pages");
+    pagesDom.textContent = "Pages:" + pages;
+  
+    const unreadDom = document.createElement("p");
+    unreadDom.classList.add("read");
+    unreadDom.textContent = read;
+  
+    index.appendChild(titleDom);
+    index.appendChild(authorDom);
+    index.appendChild(pagesDom);
+    index.appendChild(unreadDom);
+  
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+  
+    const toggleLabel = document.createElement("label");
+    toggleLabel.classList.add("toggle-label");
+  
+    const toggleInput = document.createElement("input");
+    toggleInput.setAttribute("type", "checkbox");
+    toggleInput.classList.add("toggle-input");
+  
+    const toggleSlider = document.createElement("span");
+    toggleSlider.classList.add("toggle-slider");
+
+    if (read == "Read") {
+      gridItem.classList.add('green-border');
+      toggleInput.checked = true;
+      unreadDom.classList.add("green-text");
+    } else {
+      gridItem.classList.remove('green-border');
+      toggleInput.checked = false;
+    }
+  
+    toggleLabel.appendChild(toggleInput);
+    toggleLabel.appendChild(toggleSlider);
+  
+    gridItem.appendChild(index);
+    gridItem.appendChild(deleteButton);
+    gridItem.appendChild(toggleLabel);
+  
+    const gridContainer = document.getElementById("grid-container");
+    gridContainer.appendChild(gridItem);
 };
 
 addBookToLibrary();
+console.log(myLibrary);
