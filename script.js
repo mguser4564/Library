@@ -40,6 +40,7 @@ myLibrary.push(book);
 closePopup();
 document.getElementById("myForm").reset();
 displayBooks();
+console.log(myLibrary);
 });}
 
 function Book(title, author, pages, read) {
@@ -149,16 +150,20 @@ function toggleGridItemBorderColor() {
   }
   });
   displayBooks(); 
-  console.log(myLibrary);
 };
 
 function deleteGridItem(gridItem){
   const gridContainer = document.getElementById("grid-container");
-  gridContainer.removeChild(gridItem);
-};
+  const index = Array.from(gridContainer.children).indexOf(gridItem);
+
+  if (index !== -1) {
+    gridContainer.removeChild(gridItem);
+    myLibrary.splice(index, 1);
+  }
+  console.log(myLibrary);
+}
 
 
 addBookToLibrary();
 setupEventListeners();
 toggleGridItemBorderColor();
-console.log(myLibrary);
