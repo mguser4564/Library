@@ -36,10 +36,10 @@ let author = formData.get('author');
 let pages = formData.get('pages');
 let read = formData.get('read');
 let book = new Book(title, author, pages, read);
-createBook(book);
 myLibrary.push(book);
 closePopup();
 document.getElementById("myForm").reset();
+displayBooks();
 });}
 
 function Book(title, author, pages, read) {
@@ -49,8 +49,17 @@ function Book(title, author, pages, read) {
   this.read = read;
 };
 
-function createBook(book){
+function displayBooks() {
+  const gridContainer = document.getElementById("grid-container");
+  gridContainer.innerHTML = ""; // Clear the grid container
 
+  myLibrary.forEach(function(book) {
+    const gridItem = createBook(book);
+    gridContainer.appendChild(gridItem);
+  });
+}
+
+function createBook(book){
   const gridItem = document.createElement("div");
   gridItem.classList.add("grid-item");
 
@@ -110,30 +119,37 @@ function createBook(book){
   gridItem.appendChild(deleteButton);
   gridItem.appendChild(toggleLabel);
 
-  const gridContainer = document.getElementById("grid-container");
-  gridContainer.appendChild(gridItem);
+  return gridItem;
 };
 
 function toggleGridItemBorderColor() {
   const gridContainer = document.getElementById("grid-container");
-
   gridContainer.addEventListener('click', function (event) {
     if (event.target.classList.contains('toggle-input')) {
       const slider = event.target;
       const book = slider.closest('.grid-item');
-      const read = book.querySelector('.read')
+      const index = Array.from(gridContainer.children).indexOf(book);
+
+      if (index !== -1) {
+        const read = book.querySelector('.read');
+        const updatedBook = myLibrary[index];
 
       if (slider.checked) {
         book.classList.add('green-border');
         read.textContent = 'Read';
         read.classList.add('green-text');
+        updatedBook.read = 'Read';
       } else {
         book.classList.remove('green-border');
         read.textContent = 'Unread';
         read.classList.remove('green-text');
+        updatedBook.read = 'Unread';
       }
     }
+  }
   });
+  displayBooks(); 
+  console.log(myLibrary);
 };
 
 function deleteGridItem(gridItem){
